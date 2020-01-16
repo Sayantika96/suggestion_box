@@ -1,8 +1,25 @@
 <?php
-	
 	include_once "repository/SuggestionRepo.php";
+	include_once "repository/SuggestionTypeRepo.php";
 	$suggestionRepo = new SuggestionRepo();
+	$suggestionTypeRepo = new SuggestionTypeRepo();
 	$data = $suggestionRepo->getAll();
+	$options = $suggestionTypeRepo->getAll();
+	
+	if(isset($_POST['submit'])){
+		$search = $_POST['search'];
+		$suggestion_type_id = $_POST['suggestion_type_id'];	
+			
+		if(!empty($search) && !empty($suggestion_type_id)){
+			$data = $suggestionRepo->getSearchedAll($search, $suggestion_type_id);
+		}elseif (!empty($search) && empty($suggestion_type_id)) {
+			$data = $suggestionRepo->getSearchedAllAgain($search);
+		}elseif (!empty($suggestion_type_id) && empty($search)) {
+			$data = $suggestionRepo->getSearchedAllOnce($suggestion_type_id);
+		}else{
+			$data = $suggestionRepo->getAll();
+		}
+	}
 ?>
 <!DOCTYPE html>
 <html>
@@ -26,7 +43,18 @@ table{
 </style>
 </head>
 <body>
-	
+	<div align="center">
+		<form name="form" method="post"> 
+			<input type="text" name="search" id="Search" placeholder="Search here">
+			<input type="submit" name="submit" id="submit" value="Search"><br>
+		
+		<select name="suggestion_type_id" id="suggestion_type_id" align="center">
+				<?php foreach ($options as $singleData) { ?>
+				<option value="<?php echo $singleData['id'] ?>"><?php echo $singleData['name'] ?></option>
+				<?php } ?>
+		</select><br>
+		</form>
+	</div><br>
 	<h3 align="center">SUGGESTION</h3>
 	<table align="center">
 		<tr>
@@ -49,5 +77,6 @@ table{
 		<?php }
 		?>
 	</table>
+
 </body>
 </html>
