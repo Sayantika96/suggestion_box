@@ -1,5 +1,5 @@
 <?php
-
+	
 		include_once "repository/suggestionTypeRepo.php";
 		$suggestionTypeRepo = new SuggestionTypeRepo();
 		$data = $suggestionTypeRepo->getAll();
@@ -38,7 +38,7 @@
 				//$(document).ready(function(){
 			    	//$("#submit").click(function(){
 					$.ajax({
-						url: "insert.php",
+						url: "submitSuggestion.php",
 						type: "post",
 						data: {"details":$("#text").val(),
 								"suggestion_type_id":$("#suggestion_type_id").val()},

@@ -4,14 +4,15 @@
 	$suggestionRepo = new SuggestionRepo();
 	$suggestionTypeRepo = new SuggestionTypeRepo();
 	$data = $suggestionRepo->getAll();
+	//die();
 	$options = $suggestionTypeRepo->getAll();
 	
 	if(isset($_POST['submit'])){
 		$search = $_POST['search'];
 		$suggestion_type_id = $_POST['suggestion_type_id'];	
 			
-		if(!empty($search) && !empty($suggestion_type_id)){
-			$data = $suggestionRepo->getSearchedAll($search, $suggestion_type_id);
+		if(!empty($search) && !empty($suggestion_type_id) && !empty($login_id)){
+			$data = $suggestionRepo->getSearchedAll($search, $suggestion_type_id, $login_id);
 		}elseif (!empty($search) && empty($suggestion_type_id)) {
 			$data = $suggestionRepo->getSearchedAllAgain($search);
 		}elseif (!empty($suggestion_type_id) && empty($search)) {
@@ -62,6 +63,8 @@ table{
 			<th style="color:navy">Details</th>
 			<th style="color:navy">CreateDate</th>
 			<th style="color:navy">Suggestion_type_id</th>
+			<th style="color:navy">Login_ID</th>
+			
 		</tr>
 		<?php 
 			foreach ($data as $row) {
@@ -73,6 +76,7 @@ table{
 				<td><?php echo $row['details']; ?></td>
 				<td><?php echo $row['created_date']; ?></td>
 				<td><?php echo $row['name']; ?></td>
+				<td><?php echo $row['login_id']; ?></td>
 			</tr>
 		<?php }
 		?>
