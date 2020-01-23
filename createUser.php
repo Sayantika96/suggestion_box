@@ -40,9 +40,47 @@ span.psw {
   padding-top: 16px;
 }
 </style>
+<style>
+	ul{
+		list-style-type: none;
+		margin: 0;
+		padding: 0;
+		overflow: hidden;
+		background-color: #333; 
+	}
+	li{
+		float: left;
+		border-right: none; 
+	}
+	li:last-child {
+		border-right: none;
+	}
+	li a{
+		display: block;
+		color: white;
+		text-align: center;
+		padding: 14px 16px;
+		text-decoration: none;
+	}
+	li a:hover:not(.active{
+		background-color: #111;
+		})
+	.active{
+		background-color: #4CAF50;
+	}
+</style>
+<body>
+	<ul>
+		<li><a href="Home.php">Home</a></li>
+		<li><a href="allSuggestionUserWise.php">User</a></li>
+		<li><a href="allSuggestion.php">Submit Suggestion</a></li>
+		<li style="float: right"><a href="Login.php">Sign In</a></li>
+		<li style="float: right"><a href="createUser.php">Sign Up</a></li>
+	</ul>
+</body>
 </head>
 <body>
-	<div class="container" align="center" width="40%">
+	<div class="container" align="center">
 	<h3>NEW USER</h3>
 	<form method="post" action="submitUser.php">
 			<label for="user"><b>User</b></label>
